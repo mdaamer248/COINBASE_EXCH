@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import axios from 'axios';
 import { AuthService } from './auth.service';
 import { ConvCurrencyDto } from './dto/convert.currency.dto';
+import { CreateOrderDto } from './dto/create.order.dto';
 import { DepositFromCBAccDto } from './dto/deposit.from.CBA.dto';
 import { DepositFromPayMethodDto } from './dto/deposit.pay.method.dto';
 import { GenAddrDto } from './dto/gen-address.dto';
@@ -211,50 +212,107 @@ export class CBEService {
     return tsx;
   }
 
-
-
   /////////// Products
-  async getAllTradingPairs(){
+  async getAllTradingPairs() {
     const config = this.authService.authTheReq(`/products/`, 'GET', {});
     const pairs = await this.sendNetworkRequest(config);
     return pairs;
   }
 
-  async getSingleProduct(id: string){
+  async getSingleProduct(id: string) {
     const config = this.authService.authTheReq(`/products/${id}/`, 'GET', {});
     const product = await this.sendNetworkRequest(config);
     return product;
   }
 
-
-  async getProductBook(id: string){
-    const config = this.authService.authTheReq(`/products/${id}/book/`, 'GET', {});
+  async getProductBook(id: string) {
+    const config = this.authService.authTheReq(
+      `/products/${id}/book/`,
+      'GET',
+      {},
+    );
     const book = await this.sendNetworkRequest(config);
     return book;
   }
 
-  async getProductCandles(id: string){
-    const config = this.authService.authTheReq(`/products/${id}/candles/`, 'GET', {});
+  async getProductCandles(id: string) {
+    const config = this.authService.authTheReq(
+      `/products/${id}/candles/`,
+      'GET',
+      {},
+    );
     const candles = await this.sendNetworkRequest(config);
     return candles;
   }
 
-  async getProductStats(id: string){
-    const config = this.authService.authTheReq(`/products/${id}/stats/`, 'GET', {});
+  async getProductStats(id: string) {
+    const config = this.authService.authTheReq(
+      `/products/${id}/stats/`,
+      'GET',
+      {},
+    );
     const stats = await this.sendNetworkRequest(config);
     return stats;
   }
 
-  async getProductTicker(id: string){
-    const config = this.authService.authTheReq(`/products/${id}/ticker/`, 'GET', {});
+  async getProductTicker(id: string) {
+    const config = this.authService.authTheReq(
+      `/products/${id}/ticker/`,
+      'GET',
+      {},
+    );
     const ticker = await this.sendNetworkRequest(config);
     return ticker;
   }
 
-  async getProductTrades(id: string){
-    const config = this.authService.authTheReq(`/products/${id}/trades/`, 'GET', {});
+  async getProductTrades(id: string) {
+    const config = this.authService.authTheReq(
+      `/products/${id}/trades/`,
+      'GET',
+      {},
+    );
     const trades = await this.sendNetworkRequest(config);
     return trades;
   }
-  
+
+  //////////// Orders
+  async getAllFills() {
+    const config = this.authService.authTheReq(`/fills/`, 'GET', {});
+    const orders = await this.sendNetworkRequest(config);
+    return orders;
+  }
+
+  async getAllOrders() {
+    const config = this.authService.authTheReq(`/orders/`, 'GET', {});
+    const orders = await this.sendNetworkRequest(config);
+    return orders;
+  }
+
+  async cancelAllOrders(profile_id: string, product_id: string) {
+    const config = this.authService.authTheReq(
+      `/orders?profile_id=${product_id}&product_id=${product_id}`,
+      'DELETE',
+      {},
+    );
+    const orders = await this.sendNetworkRequest(config);
+    return orders;
+  }
+
+  async getSingleOrder(id: string) {
+    const config = this.authService.authTheReq(`/orders/${id}`, 'GET', {});
+    const orders = await this.sendNetworkRequest(config);
+    return orders;
+  }
+
+  async cancelSingleOrder(id: string) {
+    const config = this.authService.authTheReq(`/orders/${id}`, 'DELETE', {});
+    const orders = await this.sendNetworkRequest(config);
+    return orders;
+  }
+
+  async createNewOrder(body: CreateOrderDto) {
+    const config = this.authService.authTheReq(`/orders/`, 'POST', {});
+    const order = await this.sendNetworkRequest(config);
+    return order;
+  }
 }
