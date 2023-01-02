@@ -4,8 +4,8 @@ import { CreateAxiosDefaults } from 'axios';
 import { CBEService } from './cbe.service';
 import { CreateOrderDto } from './dto/create.order.dto';
 
-@ApiTags('ADDRESS BOOK')
-@Controller('cbe/address-book')
+@ApiTags('ORDERS')
+@Controller('cbe/ orders')
 export class OrdersController {
   constructor(private readonly cbeService: CBEService) {}
 
