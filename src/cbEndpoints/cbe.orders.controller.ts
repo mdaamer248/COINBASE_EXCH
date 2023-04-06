@@ -5,7 +5,7 @@ import { CBEService } from './cbe.service';
 import { CreateOrderDto } from './dto/create.order.dto';
 
 @ApiTags('ORDERS')
-@Controller('cbe/ orders')
+@Controller('cbe/orders')
 export class OrdersController {
   constructor(private readonly cbeService: CBEService) {}
 

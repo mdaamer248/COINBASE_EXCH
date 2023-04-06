@@ -311,7 +311,7 @@ export class CBEService {
   }
 
   async createNewOrder(body: CreateOrderDto) {
-    const config = this.authService.authTheReq(`/orders/`, 'POST', {});
+    const config = this.authService.authTheReq(`/orders`, 'POST', body);
     const order = await this.sendNetworkRequest(config);
     return order;
   }
